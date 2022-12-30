@@ -1,10 +1,13 @@
 package com.ricecakesoup.domain.ricecakesoup;
 
+import com.ricecakesoup.domain.common.BaseTimeEntity;
 import com.ricecakesoup.domain.refrigerator.Refrigerator;
+import lombok.Getter;
 
 import javax.persistence.*;
-
-public class RiceCakeSoup {
+@Entity
+@Getter
+public class RiceCakeSoup extends BaseTimeEntity {
     public RiceCakeSoup() {}
 
     private RiceCakeSoup(final Refrigerator refrigerator) {
@@ -20,7 +23,7 @@ public class RiceCakeSoup {
     private Refrigerator refrigerator;
 
 
-    private static RiceCakeSoup newInstance(final Refrigerator refrigerator) {
+    public static RiceCakeSoup newInstance(final Refrigerator refrigerator) {
         return new RiceCakeSoup(refrigerator);
     }
 }

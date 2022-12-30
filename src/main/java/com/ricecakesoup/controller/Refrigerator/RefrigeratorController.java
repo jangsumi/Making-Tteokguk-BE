@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/fridge")
@@ -16,21 +17,27 @@ public class RefrigeratorController {
 
     @ApiOperation("냉장고 생성")
     @PostMapping("/init")
-    public void initFridge(@RequestBody final RefrigeratorInitReqDto refrigeratorInitReqDto) {
-        refrigeratorService.initRefrigerator(refrigeratorInitReqDto);
+    public void initFridge(@RequestBody final RefrigeratorInitReqDto refrigeratorInitReqDto, @RequestParam final boolean isSecret) {
+        refrigeratorService.initRefrigerator(refrigeratorInitReqDto, isSecret);
     }
 
     @ApiOperation("로그인 후 아이디로 냉장고 정보 가져오기")
-    @GetMapping("/{kakaoId}")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public RefrigeratorResDto getFridgeById(@PathVariable final String kakaoId) {
-        return refrigeratorService.getFridgeById(kakaoId);
+    @GetMapping
+    public RefrigeratorResDto getFridgeById(@RequestParam final String kakaoId) {
+        try {
+            return refrigeratorService.getFridgeById(kakaoId);
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        }
     }
 
     @ApiOperation("링크로 냉장고 정보 가져오기")
     @GetMapping("/{link}")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public RefrigeratorResDto getFridgeByLink(@PathVariable final String link) {
-        return refrigeratorService.getFridgeByLink(link);
+        try {
+            return refrigeratorService.getFridgeByLink(link);
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        }
     }
 }

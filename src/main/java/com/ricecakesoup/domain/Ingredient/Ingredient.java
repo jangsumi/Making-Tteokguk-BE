@@ -1,10 +1,14 @@
 package com.ricecakesoup.domain.Ingredient;
 
+import com.ricecakesoup.domain.common.BaseTimeEntity;
 import com.ricecakesoup.domain.refrigerator.Refrigerator;
+import com.ricecakesoup.domain.ricecakesoup.RiceCakeSoup;
+import lombok.Getter;
 
 import javax.persistence.*;
-
-public class Ingredient {
+@Entity
+@Getter
+public class Ingredient extends BaseTimeEntity {
     public Ingredient() {}
 
     private Ingredient(Refrigerator refrigerator, String title, String content, int type, boolean isUsed) {
@@ -12,7 +16,7 @@ public class Ingredient {
         this.title = title;
         this.content = content;
         this.type = type;
-        this.isUsed = isUsed;
+        this.used = isUsed;
     }
 
     @Id
@@ -24,6 +28,10 @@ public class Ingredient {
     @JoinColumn(name = "refrigerator_id")
     private Refrigerator refrigerator;
 
+    @ManyToOne
+    @JoinColumn(name = "rice_cake_soup_id")
+    private RiceCakeSoup riceCakeSoup;
+
     @Column
     private String title;
 
@@ -34,9 +42,21 @@ public class Ingredient {
     private int type;
 
     @Column
-    private boolean isUsed;
+    private boolean used;
 
-    private static Ingredient newInstance(Refrigerator refrigerator, String title, String content, int type, boolean isUsed) {
+    public static Ingredient newInstance(Refrigerator refrigerator, String title, String content, int type, boolean isUsed) {
         return new Ingredient(refrigerator, title, content, type, isUsed);
+    }
+
+    public void setRiceCakeSoup(RiceCakeSoup riceCakeSoup) {
+        this.riceCakeSoup = riceCakeSoup;
+    }
+
+    public void setUsed(boolean used) {
+        this.used = used;
+    }
+
+    public int ingredientToType() {
+        return type;
     }
 }

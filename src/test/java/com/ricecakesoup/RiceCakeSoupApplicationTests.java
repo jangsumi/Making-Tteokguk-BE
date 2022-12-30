@@ -1,4 +1,4 @@
-package com.example.ricecake.soup;
+package com.ricecakesoup;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

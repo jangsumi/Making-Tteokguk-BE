@@ -7,12 +7,13 @@ import com.ricecakesoup.service.refrigerator.dto.response.RefrigeratorResDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class RefrigeratorService {
     private final RefrigeratorRepository refrigeratorRepository;
-    public void initRefrigerator(final RefrigeratorInitReqDto refrigeratorInitReqDto) {
-        boolean isSecret = refrigeratorInitReqDto.isSecret();
+    public void initRefrigerator(final RefrigeratorInitReqDto refrigeratorInitReqDto, final boolean isSecret) {
         String kakaoId = refrigeratorInitReqDto.getKakaoId();
         String nickname = refrigeratorInitReqDto.getNickname();
         int color = refrigeratorInitReqDto.getColor();
@@ -22,8 +23,8 @@ public class RefrigeratorService {
     }
 
     public RefrigeratorResDto getFridgeById(final String kakaoId) {
-        Refrigerator refrigerator = refrigeratorRepository.findByKakaoId(kakaoId);
-        return RefrigeratorResDto.of(refrigerator);
+        Optional<Refrigerator> refrigerator = refrigeratorRepository.findByKakaoId(kakaoId);
+        return RefrigeratorResDto.of(refrigerator.get());
     }
 
     public RefrigeratorResDto getFridgeByLink(final String link) {
