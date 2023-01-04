@@ -13,13 +13,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RefrigeratorService {
     private final RefrigeratorRepository refrigeratorRepository;
-    public void initRefrigerator(final RefrigeratorInitReqDto refrigeratorInitReqDto, final boolean isSecret) {
+    public RefrigeratorResDto initRefrigerator(final RefrigeratorInitReqDto refrigeratorInitReqDto, final boolean isSecret) {
         String kakaoId = refrigeratorInitReqDto.getKakaoId();
         String nickname = refrigeratorInitReqDto.getNickname();
         int color = refrigeratorInitReqDto.getColor();
         // TODO link parameter 교체 필요
         Refrigerator refrigerator = Refrigerator.newInstance(isSecret, kakaoId, kakaoId, nickname, color);
         refrigeratorRepository.save(refrigerator);
+        return RefrigeratorResDto.of(refrigerator);
     }
 
     public RefrigeratorResDto getFridgeById(final String kakaoId) {

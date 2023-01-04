@@ -2,6 +2,7 @@ package com.ricecakesoup.controller.ingredient;
 
 import com.ricecakesoup.controller.ingredient.dto.request.IngredientCreateReqDto;
 import com.ricecakesoup.service.ingredient.IngredientService;
+import com.ricecakesoup.service.ingredient.dto.response.IngredientNotUsedResDto;
 import com.ricecakesoup.service.ingredient.dto.response.IngredientResDto;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -32,4 +33,10 @@ public class IngredientController {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT);
         }
     }
+
+//    @ApiOperation("사용하지 않은 재료 개수 가져오기")
+//    @GetMapping("/{fridgeId}/not-used")
+//    public IngredientNotUsedResDto getNotUsedIngredient(@PathVariable final Long fridgeId) {
+//        return ingredientService.getNotUsedIngredient(fridgeId);
+//    }
 }
