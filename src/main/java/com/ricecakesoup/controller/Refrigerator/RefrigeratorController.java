@@ -17,8 +17,8 @@ public class RefrigeratorController {
 
     @ApiOperation("냉장고 생성")
     @PostMapping("/init")
-    public void initFridge(@RequestBody final RefrigeratorInitReqDto refrigeratorInitReqDto, @RequestParam final boolean isSecret) {
-        refrigeratorService.initRefrigerator(refrigeratorInitReqDto, isSecret);
+    public RefrigeratorResDto initFridge(@RequestBody final RefrigeratorInitReqDto refrigeratorInitReqDto, @RequestParam final boolean isSecret) {
+        return refrigeratorService.initRefrigerator(refrigeratorInitReqDto, isSecret);
     }
 
     @ApiOperation("로그인 후 아이디로 냉장고 정보 가져오기")

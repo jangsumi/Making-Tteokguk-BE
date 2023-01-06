@@ -5,6 +5,7 @@ import com.ricecakesoup.domain.Ingredient.Ingredient;
 import com.ricecakesoup.domain.Ingredient.IngredientRepository;
 import com.ricecakesoup.domain.refrigerator.Refrigerator;
 import com.ricecakesoup.domain.refrigerator.RefrigeratorRepository;
+import com.ricecakesoup.service.ingredient.dto.response.IngredientNotUsedResDto;
 import com.ricecakesoup.service.ingredient.dto.response.IngredientResDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -42,4 +43,9 @@ public class IngredientService {
             throw new RuntimeException();
         return ingredientResDtoList;
     }
+
+//    public IngredientNotUsedResDto getNotUsedIngredient(final Long fridgeId) {
+//        Refrigerator refrigerator = refrigeratorRepository.findById(fridgeId).orElseThrow(()-> new IllegalArgumentException("존재하지 않는 냉장고 id 입니다."));
+//
+//    }
 }
