@@ -31,7 +31,7 @@ public class OAuthService {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=01e20c4d528a4d85430b59e9a5a1c0a3"); //TODO REST_API KEY
-            sb.append("&redirect_uri=https://makingtteokguk.netlify.app/user/kakao/callback"); // TODO 인가코드 받은 redirect_uri 입력
+            sb.append("&redirect_uri=http://3.35.136.13:8080/user/kakao/callback"); // TODO 인가코드 받은 redirect_uri 입력
             sb.append("&code=" + code);
             bw.write(sb.toString());
             bw.flush();
