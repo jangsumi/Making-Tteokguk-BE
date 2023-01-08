@@ -16,7 +16,7 @@ public class Refrigerator {
         this.kakaoId = kakaoId;
         this.nickname = nickname;
         this.color = color;
-        this.unlockRCS = 256;
+        this.unlockRCS = 512;
     }
 
     @Id

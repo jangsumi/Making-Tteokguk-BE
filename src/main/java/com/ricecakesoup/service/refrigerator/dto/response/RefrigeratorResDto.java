@@ -34,7 +34,7 @@ public class RefrigeratorResDto {
     private List<Boolean> binToList(int unlockRCS) {
         int binRcs = Integer.parseInt(Integer.toBinaryString(unlockRCS));
         List<Boolean> typeList = new ArrayList<>();
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 9; i++) {
             int isUnlock = binRcs % 10;
             binRcs /= 10;
             typeList.add(isUnlock == 1);
