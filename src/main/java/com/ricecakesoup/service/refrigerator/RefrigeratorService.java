@@ -24,7 +24,9 @@ public class RefrigeratorService {
     }
 
     public RefrigeratorResDto getFridgeById(final String kakaoId) {
-        Optional<Refrigerator> refrigerator = refrigeratorRepository.findByKakaoId(kakaoId);
+
+        Optional<Refrigerator> refrigerator = refrigeratorRepository.findByKakaoId(kakaoId);            System.out.println();
+
         return RefrigeratorResDto.of(refrigerator.get());
     }
 

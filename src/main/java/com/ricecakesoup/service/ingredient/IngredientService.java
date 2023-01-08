@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,8 +45,12 @@ public class IngredientService {
         return ingredientResDtoList;
     }
 
-//    public IngredientNotUsedResDto getNotUsedIngredient(final Long fridgeId) {
-//        Refrigerator refrigerator = refrigeratorRepository.findById(fridgeId).orElseThrow(()-> new IllegalArgumentException("존재하지 않는 냉장고 id 입니다."));
-//
-//    }
+    public List<Integer> getNotUsedIngredient(final Long fridgeId) {
+        Refrigerator refrigerator = refrigeratorRepository.findById(fridgeId).orElseThrow(()-> new IllegalArgumentException("존재하지 않는 냉장고 id 입니다."));
+        List<Integer> ingredientCount = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            ingredientCount.add(ingredientRepository.countAllByTypeAndRefrigeratorAndUsedFalse(i, refrigerator));
+        }
+        return ingredientCount;
+    }
 }

@@ -31,6 +31,8 @@ public class RiceCakeSoupService {
         for (int typeNum : ingredientList) {
             ingredientToSoup(refrigerator, riceCakeSoup, typeNum);
         }
+        refrigerator.setUnlockRCS(soupMakeReqDto.getSoupType());
+        refrigeratorRepository.save(refrigerator);
     }
 
     private void ingredientToSoup (Refrigerator refrigerator, RiceCakeSoup riceCakeSoup, int type) {

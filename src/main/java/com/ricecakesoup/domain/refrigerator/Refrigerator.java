@@ -3,6 +3,7 @@ package com.ricecakesoup.domain.refrigerator;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -15,6 +16,7 @@ public class Refrigerator {
         this.kakaoId = kakaoId;
         this.nickname = nickname;
         this.color = color;
+        this.unlockRCS = 256;
     }
 
     @Id
@@ -37,7 +39,14 @@ public class Refrigerator {
     @Column
     private String nickname;
 
+    @Column
+    private int unlockRCS;
+
     public static Refrigerator newInstance(final boolean isSecret, final String link, final String kakaoId, final String nickname, final int color) {
         return new Refrigerator(isSecret, link, kakaoId, nickname, color);
+    }
+
+    public void setUnlockRCS(int type) {
+        unlockRCS = unlockRCS | (int) Math.pow(2, type);
     }
 }

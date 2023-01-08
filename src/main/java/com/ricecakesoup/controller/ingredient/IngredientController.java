@@ -34,9 +34,13 @@ public class IngredientController {
         }
     }
 
-//    @ApiOperation("사용하지 않은 재료 개수 가져오기")
-//    @GetMapping("/{fridgeId}/not-used")
-//    public IngredientNotUsedResDto getNotUsedIngredient(@PathVariable final Long fridgeId) {
-//        return ingredientService.getNotUsedIngredient(fridgeId);
-//    }
+    @ApiOperation("사용하지 않은 재료 개수 가져오기")
+    @GetMapping("/{fridgeId}/not-used")
+    public List<Integer> getNotUsedIngredient(@PathVariable final Long fridgeId) {
+        try {
+            return ingredientService.getNotUsedIngredient(fridgeId);
+        }catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        }
+    }
 }

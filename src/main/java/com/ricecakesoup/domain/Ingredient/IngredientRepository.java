@@ -19,6 +19,8 @@ public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
 
     List<Ingredient> findByRiceCakeSoup(RiceCakeSoup riceCakeSoup);
 
+    int countAllByTypeAndRefrigeratorAndUsedFalse(int type, Refrigerator refrigerator);
+
 //    int countBy
 //    @Modifying
 //    @Query("select " + "i.type, count(i) " + "from Ingredient i" + "Group BY u.type")

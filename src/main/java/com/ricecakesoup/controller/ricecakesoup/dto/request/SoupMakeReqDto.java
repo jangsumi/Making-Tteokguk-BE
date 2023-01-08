@@ -7,4 +7,6 @@ import java.util.List;
 @Getter
 public class SoupMakeReqDto {
     List<Integer> ingredientList;
+
+    int soupType;
 }
