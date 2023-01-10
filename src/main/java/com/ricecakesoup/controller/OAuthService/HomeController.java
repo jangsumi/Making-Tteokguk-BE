@@ -4,6 +4,7 @@ import com.ricecakesoup.service.OAuthService.OAuthService;
 import com.ricecakesoup.service.OAuthService.dto.response.LoginResDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,8 +21,8 @@ public class HomeController {
         return "index";
     }
 
-    @RequestMapping(value="/user/kakao/callback")
-    public LoginResDto login(@RequestParam("code") String code, HttpSession session) {
+    @GetMapping(value="/user/kakao/callback")
+    public LoginResDto login(@RequestParam String code, HttpSession session) {
         String access_Token = kakao.getKakaoAccessToken(code);
         HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
         System.out.println("login Controller : " + userInfo);
