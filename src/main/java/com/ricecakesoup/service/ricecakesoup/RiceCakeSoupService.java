@@ -7,12 +7,14 @@ import com.ricecakesoup.domain.refrigerator.Refrigerator;
 import com.ricecakesoup.domain.refrigerator.RefrigeratorRepository;
 import com.ricecakesoup.domain.ricecakesoup.RiceCakeSoup;
 import com.ricecakesoup.domain.ricecakesoup.RiceCakeSoupRepository;
+import com.ricecakesoup.service.ingredient.dto.response.IngredientResDto;
 import com.ricecakesoup.service.ricecakesoup.dto.response.SoupResDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,24 +24,33 @@ public class RiceCakeSoupService {
 
     private final IngredientRepository ingredientRepository;
 
-    public void makeSoup(final SoupMakeReqDto soupMakeReqDto, final Long fridgeId) {
-        List<Integer> ingredientList = soupMakeReqDto.getIngredientList();
+    public List<IngredientResDto> makeSoup(final SoupMakeReqDto soupMakeReqDto, final Long fridgeId) {
+        List<Integer> ingredientTypeList = soupMakeReqDto.getIngredientList();
         Refrigerator refrigerator = refrigeratorRepository.findById(fridgeId)
                 .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 내장고 id 입니다."));
         RiceCakeSoup riceCakeSoup = RiceCakeSoup.newInstance(refrigerator);
         riceCakeSoupRepository.save(riceCakeSoup);
-        for (int typeNum : ingredientList) {
-            ingredientToSoup(refrigerator, riceCakeSoup, typeNum);
+        List<Ingredient> ingredientList = new ArrayList<>();
+        for (int typeNum : ingredientTypeList) {
+            ingredientList.add(ingredientToSoup(refrigerator, riceCakeSoup, typeNum));
         }
+
+        List<IngredientResDto> ingredientResDtoList = ingredientList.stream()
+                .map(IngredientResDto::of)
+                .collect(Collectors.toList());
+
         refrigerator.setUnlockRCS(soupMakeReqDto.getSoupType());
         refrigeratorRepository.save(refrigerator);
+
+        return ingredientResDtoList;
     }
 
-    private void ingredientToSoup (Refrigerator refrigerator, RiceCakeSoup riceCakeSoup, int type) {
+    private Ingredient ingredientToSoup (Refrigerator refrigerator, RiceCakeSoup riceCakeSoup, int type) {
         Ingredient ingredient = ingredientRepository.findFirstByTypeAndUsedFalseAndRefrigeratorOrderByCreatedAtAsc(type, refrigerator);
         ingredient.setRiceCakeSoup(riceCakeSoup);
         ingredient.setUsed(true);
         ingredientRepository.save(ingredient);
+        return ingredient;
     }
 
     public List<SoupResDto> getSoup(Long fridgeId) {

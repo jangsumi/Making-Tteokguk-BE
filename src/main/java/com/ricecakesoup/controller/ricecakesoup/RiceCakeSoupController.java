@@ -1,6 +1,7 @@
 package com.ricecakesoup.controller.ricecakesoup;
 
 import com.ricecakesoup.controller.ricecakesoup.dto.request.SoupMakeReqDto;
+import com.ricecakesoup.service.ingredient.dto.response.IngredientResDto;
 import com.ricecakesoup.service.ricecakesoup.RiceCakeSoupService;
 import com.ricecakesoup.service.ricecakesoup.dto.response.SoupResDto;
 import io.swagger.annotations.ApiOperation;
@@ -20,8 +21,8 @@ public class RiceCakeSoupController {
 
     @PostMapping("{fridgeId}")
     @ApiOperation("떡국 만들기")
-    public void makeSoup(@RequestBody final SoupMakeReqDto soupMakeReqDto, @RequestParam final Long fridgeId) {
-        riceCakeSoupService.makeSoup(soupMakeReqDto, fridgeId);
+    public List<IngredientResDto> makeSoup(@RequestBody final SoupMakeReqDto soupMakeReqDto, @RequestParam final Long fridgeId) {
+        return riceCakeSoupService.makeSoup(soupMakeReqDto, fridgeId);
     }
 
     @GetMapping("{fridgeId}")
