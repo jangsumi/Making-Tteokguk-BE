@@ -2,16 +2,11 @@ package com.ricecakesoup.controller.OAuthService;
 
 import com.ricecakesoup.service.OAuthService.OAuthService;
 import com.ricecakesoup.service.refrigerator.RefrigeratorService;
-import com.ricecakesoup.service.refrigerator.dto.response.RefrigeratorResDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
