@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,8 +29,8 @@ public class HomeController {
         return "index";
     }
 
-    @RequestMapping(value="/user/kakao/callback")
-    public RefrigeratorResDto login(@RequestParam("code") String code, HttpSession session) {
+    @GetMapping(value="/user/kakao/callback")
+    public String login(@RequestParam String code, HttpSession session) {
         String access_Token = oAuthService.getKakaoAccessToken(code);
         HashMap<String, Object> userInfo = oAuthService.getUserInfo(access_Token);
         System.out.println("login Controller : " + userInfo);
@@ -47,9 +48,9 @@ public class HomeController {
         System.out.println("kakaoid: " + kakaoId);
 
         try {
-            return refrigeratorService.getFridgeById(kakaoId);
+            return kakaoId;
         } catch (RuntimeException e) {
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+            return "error";
         }
     }
 }
