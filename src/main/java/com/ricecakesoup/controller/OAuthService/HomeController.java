@@ -1,6 +1,7 @@
 package com.ricecakesoup.controller.OAuthService;
 
 import com.ricecakesoup.service.OAuthService.OAuthService;
+import com.ricecakesoup.service.OAuthService.dto.response.LoginResDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ public class HomeController {
     }
 
     @RequestMapping(value="/user/kakao/callback")
-    public String login(@RequestParam("code") String code, HttpSession session) {
+    public LoginResDto login(@RequestParam("code") String code, HttpSession session) {
         String access_Token = kakao.getKakaoAccessToken(code);
         HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
         System.out.println("login Controller : " + userInfo);
@@ -42,7 +43,7 @@ public class HomeController {
             kakao_id = response_body.substring(6,(response_body.substring(target_num).indexOf(",")+1));
             System.out.println("kakaoid: " + kakao_id);
         }
-        return kakao_id;
+        return LoginResDto.of(kakao_id);
     }
 }
 
