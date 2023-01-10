@@ -100,7 +100,7 @@ public class OAuthService {
             while ((line = br.readLine()) != null) {
                 result += line;
             }
-            System.out.println("response body : " + result);
+            System.out.println("response body1 : " + result);
 
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
@@ -113,6 +113,7 @@ public class OAuthService {
 
             userInfo.put("nickname", nickname);
             userInfo.put("email", email);
+            userInfo.put("response_body", result);
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
