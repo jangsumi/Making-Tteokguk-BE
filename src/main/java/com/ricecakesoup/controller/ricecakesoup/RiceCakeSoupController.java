@@ -21,7 +21,7 @@ public class RiceCakeSoupController {
 
     @PostMapping("{fridgeId}")
     @ApiOperation("떡국 만들기")
-    public List<IngredientResDto> makeSoup(@RequestBody final SoupMakeReqDto soupMakeReqDto, @RequestParam final Long fridgeId) {
+    public List<IngredientResDto> makeSoup(@RequestBody final SoupMakeReqDto soupMakeReqDto, @PathVariable final Long fridgeId) {
         return riceCakeSoupService.makeSoup(soupMakeReqDto, fridgeId);
     }
 
