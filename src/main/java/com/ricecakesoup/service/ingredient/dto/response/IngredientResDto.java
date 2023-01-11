@@ -10,8 +10,6 @@ public class IngredientResDto {
     private String content;
 
     public static IngredientResDto of(Ingredient ingredient) {
-        System.out.println("err3");
-
         return new IngredientResDto(ingredient);
     }
 
