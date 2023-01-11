@@ -35,9 +35,11 @@ public class RiceCakeSoupService {
             ingredientList.add(ingredientToSoup(refrigerator, riceCakeSoup, typeNum));
         }
 
+        System.out.println("err1");
         List<IngredientResDto> ingredientResDtoList = ingredientList.stream()
                 .map(IngredientResDto::of)
                 .collect(Collectors.toList());
+        System.out.println("err2");
 
         refrigerator.setUnlockRCS(soupMakeReqDto.getSoupType());
         refrigeratorRepository.save(refrigerator);

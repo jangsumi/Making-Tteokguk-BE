@@ -19,11 +19,6 @@ public class HomeController {
     private final OAuthService oAuthService;
     private final RefrigeratorService refrigeratorService;
 
-    @RequestMapping(value="/")
-    public String index() {
-        return "index";
-    }
-
     @GetMapping(value="/user/kakao/callback")
     public String login(@RequestParam String code, HttpSession session) {
         String access_Token = oAuthService.getKakaoAccessToken(code);
@@ -42,11 +37,7 @@ public class HomeController {
         kakaoId = response_body.substring(6,(response_body.substring(target_num).indexOf(",")+1));
         System.out.println("kakaoid: " + kakaoId);
 
-        try {
-            return kakaoId;
-        } catch (RuntimeException e) {
-            return "error";
-        }
+        return kakaoId;
     }
 }
 
