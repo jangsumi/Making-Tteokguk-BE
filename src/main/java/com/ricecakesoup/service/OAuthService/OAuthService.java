@@ -32,7 +32,7 @@ public class OAuthService {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=01e20c4d528a4d85430b59e9a5a1c0a3"); //TODO REST_API KEY
-            sb.append("&redirect_uri=http://localhost:8080/api/user/kakao/callback"); // TODO 인가코드 받은 redirect_uri 입력
+            sb.append("&redirect_uri=http://localhost:5173/api/user/kakao/callback"); // TODO 인가코드 받은 redirect_uri 입력
             // http://3.35.136.13:8080/user/kakao/callback
             sb.append("&code=" + code);
             bw.write(sb.toString());
@@ -84,7 +84,7 @@ public class OAuthService {
         try {
             URL url = new URL(reqURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
+            conn.setRequestMethod("POST");
 
             //    요청에 필요한 Header에 포함될 내용
             conn.setRequestProperty("Authorization", "Bearer " + access_Token);
