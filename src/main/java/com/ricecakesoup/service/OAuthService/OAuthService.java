@@ -3,6 +3,7 @@ package com.ricecakesoup.service.OAuthService;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -14,6 +15,9 @@ import java.util.HashMap;
 
 @Service
 public class OAuthService {
+    @Value("${kakao-client_id}")
+    private String kakao_client_id;
+
     public String getKakaoAccessToken(String code) {
         String access_Token = "";
         String refresh_Token = "";
@@ -31,7 +35,8 @@ public class OAuthService {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id=01e20c4d528a4d85430b59e9a5a1c0a3"); //TODO REST_API KEY
+            sb.append("&client_id="); //TODO REST_API KEY
+            sb.append(kakao_client_id);
             sb.append("&redirect_uri=https://makingtteokguk.netlify.app/api/user/kakao/callback"); // TODO 인가코드 받은 redirect_uri 입력
             // http://3.35.136.13:8080/user/kakao/callback
             sb.append("&code=" + code);
