@@ -32,7 +32,11 @@ public class RiceCakeSoupService {
         riceCakeSoupRepository.save(riceCakeSoup);
         List<Ingredient> ingredientList = new ArrayList<>();
         for (int typeNum : ingredientTypeList) {
-            ingredientList.add(ingredientToSoup(refrigerator, riceCakeSoup, typeNum));
+            if (typeNum == 6) {
+                ingredientToSoup(refrigerator, riceCakeSoup, typeNum);
+            }else {
+                ingredientList.add(ingredientToSoup(refrigerator, riceCakeSoup, typeNum));
+            }
         }
 
         List<IngredientResDto> ingredientResDtoList = ingredientList.stream()

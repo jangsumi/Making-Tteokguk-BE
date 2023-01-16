@@ -11,9 +11,9 @@ import java.util.List;
 
 @Repository
 public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
-    List<Ingredient> findByUsedTrueAndRefrigeratorIdOrderByCreatedAtDesc(Long fridgeId);
+    List<Ingredient> findByUsedTrueAndRefrigeratorIdAndTypeLessThanOrderByCreatedAtDesc(Long fridgeId, int type);
 
-    List<Ingredient> findByUsedFalseAndRefrigeratorId(Long fridgeId);
+    List<Ingredient> findByUsedFalseAndRefrigeratorIdAndTypeLessThan(Long fridgeId, int type);
 
     Ingredient findFirstByTypeAndUsedFalseAndRefrigeratorOrderByCreatedAtAsc(int type, Refrigerator refrigerator);
 

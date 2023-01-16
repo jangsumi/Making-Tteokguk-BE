@@ -33,9 +33,9 @@ public class IngredientService {
     public List<IngredientResDto> getIngredient(final boolean isUsed, final Long fridgeId) {
         List<Ingredient> ingredientList;
         if (isUsed)
-            ingredientList = ingredientRepository.findByUsedTrueAndRefrigeratorIdOrderByCreatedAtDesc(fridgeId);
+            ingredientList = ingredientRepository.findByUsedTrueAndRefrigeratorIdAndTypeLessThanOrderByCreatedAtDesc(fridgeId, 6);
         else
-            ingredientList = ingredientRepository.findByUsedFalseAndRefrigeratorId(fridgeId);
+            ingredientList = ingredientRepository.findByUsedFalseAndRefrigeratorIdAndTypeLessThan(fridgeId, 6);
 
         List<IngredientResDto> ingredientResDtoList = ingredientList.stream()
                                                         .map(IngredientResDto::of)
